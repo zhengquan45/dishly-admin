@@ -25,6 +25,8 @@ export default {
   'menu.list.table-list': '查询表格',
   'menu.list.product-list': '商品管理',
   'menu.list.user-list': '用户管理',
+  'menu.list.banner-list': '广告管理',
+  'menu.list.order-list': '订单管理',
   'menu.list.basic-list': '标准列表',
   'menu.list.card-list': '卡片列表',
   'menu.list.search-list': '搜索列表',

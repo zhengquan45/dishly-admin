@@ -1,6 +1,6 @@
 import { ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import { ProFormUploadButton } from '@ant-design/pro-form';
-import { ProForm, ProFormMoney } from '@ant-design/pro-form/lib';
+import { ProForm, ProFormDateTimeRangePicker, ProFormDigit } from '@ant-design/pro-form/lib';
 import { FormattedMessage, useIntl } from '@umijs/max';
 import { Col, message, Modal, Row, Space } from 'antd';
 import React, { useState } from 'react';
@@ -11,13 +11,13 @@ export type FormValueType = {
   type?: string;
   time?: string;
   frequency?: string;
-} & Partial<API.ProductListItem>;
+} & Partial<API.BannerListItem>;
 
 export type UpdateFormProps = {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
   onSubmit: (values: FormValueType) => Promise<void>;
   updateModalOpen: boolean;
-  values: Partial<API.ProductListItem>;
+  values: Partial<API.BannerListItem>;
 };
 
 type LayoutType = Parameters<typeof ProForm>[0]['layout'];
@@ -57,7 +57,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   return (
     <Modal
       width={640}
-      bodyStyle={{ padding: '32px 40px 48px' }}
+      // bodyStyle={{ padding: '32px 40px 48px' }}
       destroyOnClose
       title={intl.formatMessage({
         id: 'pages.product.searchTable.updateForm.productConfig',
@@ -67,22 +67,26 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       onCancel={() => {
         props.onCancel();
       }}
+      footer={null}
     >
       <ProForm
         initialValues={{
           id: props.values.id,
           name: props.values.name,
-          imageUrl:
-            props.values.imageUrl && props.values.imageUrl.length > 0
-              ? [props.values.imageUrl].map((it: any, index: number) => ({
+          type: props.values.type,
+          contentType: props.values.contentType,
+          contentUrl:
+            props.values.contentUrl && props.values.contentUrl.length > 0
+              ? [props.values.contentUrl].map((it: any, index: number) => ({
                   url: it,
                   uid: index + 1,
                   status: 'done',
                 }))
               : [],
-          category: props.values.category,
-          price: props.values.price,
-          isAvailable: props.values.isAvailable,
+          clickUrl: props.values.clickUrl,
+          dateRange: props.values.dateRange,
+          status: props.values.status,
+          priority: props.values.priority,
         }}
         {...formItemLayout}
         layout={formLayoutType}
@@ -104,16 +108,16 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <ProFormText name="id" hidden={true} />
         <ProFormText
           label={intl.formatMessage({
-            id: 'pages.product.searchTable.updateForm.nameLabel',
-            defaultMessage: 'productName',
+            id: 'pages.banner.searchTable.updateForm.nameLabel',
+            defaultMessage: 'banner name',
           })}
           rules={[
             {
               required: true,
               message: (
                 <FormattedMessage
-                  id="pages.searchTable.productName"
-                  defaultMessage="Product name is required"
+                  id="pages.searchTable.bannerName"
+                  defaultMessage="Banner name is required"
                 />
               ),
             },
@@ -122,40 +126,97 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           name="name"
         />
         <ProFormSelect
-          name="category"
+          name="type"
           width="md"
           label={intl.formatMessage({
-            id: 'pages.product.searchTable.updateForm.categoryLabel',
-            defaultMessage: 'product category',
+            id: 'pages.banner.searchTable.updateForm.typeLabel',
+            defaultMessage: 'banner type',
           })}
           valueEnum={{
-            午餐: {
-              text: '午餐',
+            BANNER: {
+              text: '首页广告位',
             },
-            晚餐: {
-              text: '晚餐',
+          }}
+        />
+        <ProFormDigit
+          label={intl.formatMessage({
+            id: 'pages.banner.searchTable.updateForm.priorityLabel',
+            defaultMessage: 'banner priority',
+          })}
+          name="priority"
+        />
+        <ProFormSelect
+          name="contentType"
+          width="md"
+          label={intl.formatMessage({
+            id: 'pages.banner.searchTable.updateForm.contentTypeLabel',
+            defaultMessage: 'banner contentType',
+          })}
+          valueEnum={{
+            IMAGE: {
+              text: '图片',
+            },
+            VIDEO: {
+              text: '视频',
             },
           }}
         />
         <ProFormUploadButton
           label={intl.formatMessage({
-            id: 'pages.product.searchTable.updateForm.imageUrlLabel',
-            defaultMessage: 'product image url',
+            id: 'pages.banner.searchTable.updateForm.contentUrlLabel',
+            defaultMessage: 'content url',
           })}
           max={1} // 限制只能上传一个文件
           action="/api/image" // SM.MS 图床上传地址
-          name="imageUrl"
+          name="contentUrl"
           onChange={handleUploadChange}
           listType="picture"
           accept="image/*" // 限制只能上传图片
         />
-        <ProFormMoney
+        <ProFormText
           label={intl.formatMessage({
-            id: 'pages.product.searchTable.updateForm.priceLabel',
-            defaultMessage: 'product price',
+            id: 'pages.banner.searchTable.updateForm.clickUrlLabel',
+            defaultMessage: 'click url',
           })}
           width="md"
-          name="price"
+          name="clickUrl"
+        />
+        <ProFormDateTimeRangePicker
+          label={intl.formatMessage({
+            id: 'pages.banner.searchTable.updateForm.dateRangeLabel',
+            defaultMessage: 'Date Range',
+          })}
+          name="dateRange"
+          placeholder={[
+            intl.formatMessage({
+              id: 'pages.banner.searchTable.updateForm.startTimePlaceholder',
+              defaultMessage: 'Start Time',
+            }),
+            intl.formatMessage({
+              id: 'pages.banner.searchTable.updateForm.endTimePlaceholder',
+              defaultMessage: 'End Time',
+            }),
+          ]}
+        />
+        <ProFormSelect
+          name="status"
+          options={[
+            {
+              //@ts-ignore
+              value: true,
+              label: '激活',
+            },
+            {
+              //@ts-ignore
+              value: false,
+              label: '未激活',
+            },
+          ]}
+          width="md"
+          label={intl.formatMessage({
+            id: 'pages.banner.searchTable.updateForm.statusLabel',
+            defaultMessage: 'banner status',
+          })}
         />
       </ProForm>
     </Modal>

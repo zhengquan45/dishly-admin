@@ -58,10 +58,22 @@ export default [
     component: './UserList',
   },
   {
+    name: 'list.banner-list',
+    icon: 'table',
+    path: '/banner_list',
+    component: './BannerList',
+  },
+  {
     name: 'list.product-list',
     icon: 'table',
     path: '/product_list',
     component: './ProductList',
+  },
+  {
+    name: 'list.order-list',
+    icon: 'table',
+    path: '/order_list',
+    component: './OrderList',
   },
   {
     path: '/',

@@ -118,6 +118,28 @@ declare namespace API {
     success?: boolean;
   };
 
+  type BannerListItem = {
+    key?: number;
+    id?: number;
+    name?: string;
+    type?: string;
+    priority?: number;
+    contentType?: string;
+    contentUrl?: string;
+    clickUrl?: string;
+    dateRange?: string[];
+    status?: boolean;
+    updatedAt?: string;
+    createdAt?: string;
+  };
+
+  type BannerList = {
+    data?: BannerListItem[];
+    /** 列表的内容总数 */
+    total?: number;
+    success?: boolean;
+  };
+
   type UserListItem = {
     key?: number;
     id?: number;
@@ -133,6 +155,28 @@ declare namespace API {
 
   type UserList = {
     data?: UserListItem[];
+    /** 列表的内容总数 */
+    total?: number;
+    success?: boolean;
+  };
+
+  type OrderListItem = {
+    key?: number;
+    disabled?: boolean;
+    href?: string;
+    avatar?: string;
+    name?: string;
+    owner?: string;
+    desc?: string;
+    callNo?: number;
+    status?: number;
+    updatedAt?: string;
+    createdAt?: string;
+    progress?: number;
+  };
+
+  type OrderList = {
+    data?: OrderListItem[];
     /** 列表的内容总数 */
     total?: number;
     success?: boolean;

@@ -64,10 +64,10 @@ export async function rule(
 export async function updateRule(options?: { [key: string]: any }) {
   return request<API.RuleListItem>('/api/rule', {
     method: 'POST',
-    data:{
+    data: {
       method: 'update',
       ...(options || {}),
-    }
+    },
   });
 }
 
@@ -75,10 +75,10 @@ export async function updateRule(options?: { [key: string]: any }) {
 export async function addRule(options?: { [key: string]: any }) {
   return request<API.RuleListItem>('/api/rule', {
     method: 'POST',
-    data:{
+    data: {
       method: 'post',
       ...(options || {}),
-    }
+    },
   });
 }
 
@@ -86,10 +86,10 @@ export async function addRule(options?: { [key: string]: any }) {
 export async function removeRule(options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/rule', {
     method: 'POST',
-    data:{
+    data: {
       method: 'delete',
       ...(options || {}),
-    }
+    },
   });
 }
 
@@ -117,9 +117,9 @@ export async function product(
 export async function updateProduct(options?: { [key: string]: any }) {
   return request<API.ProductListItem>('/api/product', {
     method: 'PUT',
-    data:{
+    data: {
       ...(options || {}),
-    }
+    },
   });
 }
 
@@ -127,8 +127,68 @@ export async function updateProduct(options?: { [key: string]: any }) {
 export async function addProduct(options?: { [key: string]: any }) {
   return request<API.ProductListItem>('/api/product', {
     method: 'POST',
-    data:{
+    data: {
       ...(options || {}),
-    }
+    },
+  });
+}
+
+/** 获取用户列表 GET /api/user */
+export async function user(
+  params: {
+    // query
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.UserList>('/api/user', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 获取广告列表 GET /api/banner */
+export async function banner(
+  params: {
+    // query
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.BannerList>('/api/banner', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 更新广告 PUT /api/banner */
+export async function updateBanner(options?: { [key: string]: any }) {
+  return request<API.BannerListItem>('/api/banner', {
+    method: 'PUT',
+    data: {
+      ...(options || {}),
+    },
+  });
+}
+
+/** 新建广告 POST /api/banner */
+export async function addBanner(options?: { [key: string]: any }) {
+  return request<API.BannerListItem>('/api/banner', {
+    method: 'POST',
+    data: {
+      ...(options || {}),
+    },
   });
 }

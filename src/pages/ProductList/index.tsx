@@ -1,21 +1,24 @@
 import { addProduct, product, updateProduct } from '@/services/ant-design-pro/api';
 import { PlusCircleFilled } from '@ant-design/icons';
-import { ActionType, ProColumns, ProDescriptionsItemProps, ProFormSelect } from '@ant-design/pro-components';
 import {
+  ActionType,
   ModalForm,
   PageContainer,
+  ProColumns,
   ProDescriptions,
+  ProDescriptionsItemProps,
+  ProFormSelect,
   ProFormText,
   ProTable,
 } from '@ant-design/pro-components';
+import { ProFormUploadButton } from '@ant-design/pro-form';
+import { ProFormMoney } from '@ant-design/pro-form/lib';
 import { FormattedMessage, useIntl } from '@umijs/max';
 import { Button, Drawer, Image, message } from 'antd';
+import dayjs from 'dayjs';
 import React, { useRef, useState } from 'react';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-import dayjs from 'dayjs';
-import { ProFormUploadButton } from '@ant-design/pro-form';
-import { ProFormMoney } from '@ant-design/pro-form/lib';
 
 /**
  * @en-US Add node
@@ -30,7 +33,7 @@ const handleAdd = async (fields: API.ProductListItem) => {
       // @ts-ignore
       imageUrl: fields.imageUrl?.at(0).response?.url,
       category: fields.category,
-      price: fields.price
+      price: fields.price,
     });
     hide();
     message.success('Added successfully');
@@ -57,7 +60,7 @@ const handleUpdate = async (fields: FormValueType) => {
       // @ts-ignore
       imageUrl: fields.imageUrl?.at(0).response?.url,
       category: fields.category,
-      price: fields.price
+      price: fields.price,
     });
     hide();
 
@@ -82,36 +85,13 @@ const handleUploadChange = (info: { file: any }) => {
     // 假设图床返回的链接在 response.url 中
     const imageUrl = file.response?.url;
     if (imageUrl) {
-      message.success(`图片上传成功！链接：${imageUrl}`)
+      message.success(`图片上传成功！链接：${imageUrl}`);
       console.log('图片链接:', imageUrl);
     } else {
-      message.error('图片上传失败！')
+      message.error('图片上传失败！');
     }
   }
 };
-
-/**
- *  Delete node
- * @zh-CN 删除节点
- *
- * @param selectedRows
- */
-// const handleRemove = async (selectedRows: API.ProductListItem[]) => {
-//   const hide = message.loading('正在删除');
-//   if (!selectedRows) return true;
-//   try {
-//     await removeProduct({
-//       key: selectedRows.map((row) => row.key),
-//     });
-//     hide();
-//     message.success('Deleted successfully and will refresh soon');
-//     return true;
-//   } catch (error) {
-//     hide();
-//     message.error('Delete failed, please try again');
-//     return false;
-//   }
-// };
 
 const ProductList: React.FC = () => {
   /**
@@ -129,7 +109,6 @@ const ProductList: React.FC = () => {
 
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.ProductListItem>();
-  // const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
 
   /**
    * @en-US International configuration
@@ -160,41 +139,65 @@ const ProductList: React.FC = () => {
       },
     },
     {
-      title: <FormattedMessage id="pages.product.searchTable.updateForm.imageUrlLabel" defaultMessage="Description" />,
+      title: (
+        <FormattedMessage
+          id="pages.product.searchTable.updateForm.imageUrlLabel"
+          defaultMessage="Description"
+        />
+      ),
       dataIndex: 'imageUrl',
       render: (url) => {
         // @ts-ignore
-        return url ? <Image src={url} width={272} /> : <Image src='https://via.placeholder.com/300x200' width="20" />;
+        return url ? (
+          <Image src={url} width={272} />
+        ) : (
+          <Image src="https://via.placeholder.com/300x200" width="20" />
+        );
       },
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="pages.product.searchTable.updateForm.categoryLabel" defaultMessage="Description" />,
+      title: (
+        <FormattedMessage
+          id="pages.product.searchTable.updateForm.categoryLabel"
+          defaultMessage="Description"
+        />
+      ),
       dataIndex: 'category',
       valueType: 'select',
       valueEnum: {
-        '':{
+        '': {
           text: '全部',
         },
-        '午餐': {
+        午餐: {
           text: '午餐',
         },
-        '晚餐': {
+        晚餐: {
           text: '晚餐',
         },
       },
     },
     {
-      title: <FormattedMessage id="pages.product.searchTable.updateForm.priceLabel" defaultMessage="Description" />,
+      title: (
+        <FormattedMessage
+          id="pages.product.searchTable.updateForm.priceLabel"
+          defaultMessage="Description"
+        />
+      ),
       dataIndex: 'price',
       valueType: 'text',
       renderText: (price) => {
-        return (price ? price : 0 ) + ' ¥';
+        return (price ? price : 0) + ' ¥';
       },
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="pages.product.searchTable.updateForm.createdAtLabel" defaultMessage="Description" />,
+      title: (
+        <FormattedMessage
+          id="pages.product.searchTable.updateForm.createdAtLabel"
+          defaultMessage="Description"
+        />
+      ),
       dataIndex: 'createdAt',
       valueType: 'text',
       renderText: (timestamp) => {
@@ -204,7 +207,12 @@ const ProductList: React.FC = () => {
       hideInTable: true,
     },
     {
-      title: <FormattedMessage id="pages.product.searchTable.updateForm.updatedAtLabel" defaultMessage="Description" />,
+      title: (
+        <FormattedMessage
+          id="pages.product.searchTable.updateForm.updatedAtLabel"
+          defaultMessage="Description"
+        />
+      ),
       dataIndex: 'updatedAt',
       valueType: 'text',
       renderText: (timestamp) => {
@@ -214,12 +222,17 @@ const ProductList: React.FC = () => {
       hideInTable: true,
     },
     {
-      title: <FormattedMessage id="pages.product.searchTable.updateForm.isAvailableLabel" defaultMessage="Description" />,
+      title: (
+        <FormattedMessage
+          id="pages.product.searchTable.updateForm.isAvailableLabel"
+          defaultMessage="Description"
+        />
+      ),
       dataIndex: 'isAvailable',
       key: 'isAvailable',
       valueType: 'select',
       valueEnum: {
-        '':{
+        '': {
           text: '全部',
           status: 'Default',
         },
@@ -246,9 +259,9 @@ const ProductList: React.FC = () => {
           }}
         >
           <FormattedMessage id="pages.searchTable.update" defaultMessage="Update" />
-        </a>
+        </a>,
       ],
-    }
+    },
   ];
 
   return (
@@ -271,56 +284,13 @@ const ProductList: React.FC = () => {
               handleModalOpen(true);
             }}
           >
-            <PlusCircleFilled /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
+            <PlusCircleFilled />{' '}
+            <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
           </Button>,
         ]}
         request={product}
         columns={columns}
-        // rowSelection={{
-        //   onChange: (_, selectedRows) => {
-        //     setSelectedRows(selectedRows);
-        //   },
-        // }}
       />
-      {/*{selectedRowsState?.length > 0 && (*/}
-      {/*  <FooterToolbar*/}
-      {/*    extra={*/}
-      {/*      <div>*/}
-      {/*        <FormattedMessage id="pages.searchTable.chosen" defaultMessage="Chosen" />{' '}*/}
-      {/*        <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>{' '}*/}
-      {/*        <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />*/}
-      {/*        &nbsp;&nbsp;*/}
-      {/*        <span>*/}
-      {/*          <FormattedMessage*/}
-      {/*            id="pages.searchTable.totalServiceCalls"*/}
-      {/*            defaultMessage="Total number of service calls"*/}
-      {/*          />{' '}*/}
-      {/*          {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)}{' '}*/}
-      {/*          <FormattedMessage id="pages.searchTable.tenThousand" defaultMessage="万" />*/}
-      {/*        </span>*/}
-      {/*      </div>*/}
-      {/*    }*/}
-      {/*  >*/}
-      {/*    <Button*/}
-      {/*      onClick={async () => {*/}
-      {/*        await handleRemove(selectedRowsState);*/}
-      {/*        setSelectedRows([]);*/}
-      {/*        actionRef.current?.reloadAndRest?.();*/}
-      {/*      }}*/}
-      {/*    >*/}
-      {/*      <FormattedMessage*/}
-      {/*        id="pages.searchTable.batchDeletion"*/}
-      {/*        defaultMessage="Batch deletion"*/}
-      {/*      />*/}
-      {/*    </Button>*/}
-      {/*    <Button type="primary">*/}
-      {/*      <FormattedMessage*/}
-      {/*        id="pages.searchTable.batchApproval"*/}
-      {/*        defaultMessage="Batch approval"*/}
-      {/*      />*/}
-      {/*    </Button>*/}
-      {/*  </FooterToolbar>*/}
-      {/*)}*/}
       <ModalForm
         title={intl.formatMessage({
           id: 'pages.product.searchTable.createForm.newProduct',
@@ -359,20 +329,21 @@ const ProductList: React.FC = () => {
           name="name"
         />
         <ProFormSelect
-        name="category"
-        width="md"
-        label={intl.formatMessage({
-          id: 'pages.product.searchTable.updateForm.categoryLabel',
-          defaultMessage: 'product category',
-        })}
-        valueEnum={{
-          '午餐': {
-            text: '午餐',
-          },
-          '晚餐': {
-            text: '晚餐',
-          },
-        }}/>
+          name="category"
+          width="md"
+          label={intl.formatMessage({
+            id: 'pages.product.searchTable.updateForm.categoryLabel',
+            defaultMessage: 'product category',
+          })}
+          valueEnum={{
+            午餐: {
+              text: '午餐',
+            },
+            晚餐: {
+              text: '晚餐',
+            },
+          }}
+        />
         <ProFormUploadButton
           label={intl.formatMessage({
             id: 'pages.product.searchTable.updateForm.imageUrlLabel',
@@ -391,7 +362,8 @@ const ProductList: React.FC = () => {
             defaultMessage: 'product price',
           })}
           width="md"
-          name="price" />
+          name="price"
+        />
       </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {
