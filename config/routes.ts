@@ -53,27 +53,39 @@ export default [
   },
   {
     name: 'list.user-list',
-    icon: 'table',
+    icon: 'SmileOutlined',
     path: '/user_list',
     component: './UserList',
   },
   {
+    name: 'list.admin-user-list',
+    icon: 'UserOutlined',
+    path: '/admin_user_list',
+    component: './AdminUserList',
+  },
+  {
     name: 'list.banner-list',
-    icon: 'table',
+    icon: 'VideoCameraOutlined',
     path: '/banner_list',
     component: './BannerList',
   },
   {
     name: 'list.product-list',
-    icon: 'table',
+    icon: 'ShoppingOutlined',
     path: '/product_list',
     component: './ProductList',
   },
   {
     name: 'list.order-list',
-    icon: 'table',
+    icon: 'CopyOutlined',
     path: '/order_list',
     component: './OrderList',
+  },
+  {
+    name: 'list.coupon-template-list',
+    icon: 'CopyOutlined',
+    path: '/coupon_template_list',
+    component: './CouponTemplateList',
   },
   {
     path: '/',

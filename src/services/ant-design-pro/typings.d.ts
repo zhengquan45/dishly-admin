@@ -103,6 +103,7 @@ declare namespace API {
     key?: number;
     id?: number;
     name?: string;
+    subName?: string;
     imageUrl?: string;
     price?: string;
     category?: string;
@@ -135,6 +136,28 @@ declare namespace API {
 
   type BannerList = {
     data?: BannerListItem[];
+    /** 列表的内容总数 */
+    total?: number;
+    success?: boolean;
+  };
+
+  type AdminUserListItem = {
+    key?: number;
+    id?: number;
+    username?: string;
+    password?: string;
+    nickname?: string;
+    avatar?: string;
+    phone?: string;
+    email?: string;
+    isSuperAdmin?: boolean;
+    status?: boolean;
+    updatedAt?: string;
+    createdAt?: string;
+  };
+
+  type AdminUserList = {
+    data?: AdminUserListItem[];
     /** 列表的内容总数 */
     total?: number;
     success?: boolean;
@@ -177,6 +200,34 @@ declare namespace API {
 
   type OrderList = {
     data?: OrderListItem[];
+    /** 列表的内容总数 */
+    total?: number;
+    success?: boolean;
+  };
+
+  type CouponTemplateListItem = {
+    key?: number;
+    id?: number;
+    name?: string;
+    type?: string;
+    discountRate?: number;
+    fullAmount?: number;
+    reduceAmount?: number;
+    cashAmount?: number;
+    redeemProductId?: number;
+    redeemProductName?: string;
+    validityType?: string;
+    validityDays?: number;
+    minOrderAmount?: number;
+    applicableProductTypes?: string;
+    dateRange?: string[];
+    status?: boolean;
+    updatedAt?: string;
+    createdAt?: string;
+  };
+
+  type CouponTemplateList = {
+    data?: CouponTemplateListItem[];
     /** 列表的内容总数 */
     total?: number;
     success?: boolean;

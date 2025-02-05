@@ -24,6 +24,8 @@ export default {
   'menu.list': '列表页',
   'menu.list.table-list': '查询表格',
   'menu.list.product-list': '商品管理',
+  'menu.list.coupon-template-list': '优惠券模版管理',
+  'menu.list.admin-user-list': '管理员管理',
   'menu.list.user-list': '用户管理',
   'menu.list.banner-list': '广告管理',
   'menu.list.order-list': '订单管理',

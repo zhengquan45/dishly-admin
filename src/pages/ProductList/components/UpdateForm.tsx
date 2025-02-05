@@ -57,7 +57,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   return (
     <Modal
       width={640}
-      bodyStyle={{ padding: '32px 40px 48px' }}
+      // bodyStyle={{ padding: '32px 40px 48px' }}
       destroyOnClose
       title={intl.formatMessage({
         id: 'pages.product.searchTable.updateForm.productConfig',
@@ -120,6 +120,14 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           ]}
           width="md"
           name="name"
+        />
+        <ProFormText
+          label={intl.formatMessage({
+            id: 'pages.product.searchTable.updateForm.subNameLabel',
+            defaultMessage: 'productName',
+          })}
+          width="md"
+          name="subName"
         />
         <ProFormSelect
           name="category"

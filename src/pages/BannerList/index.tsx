@@ -256,11 +256,9 @@ const BannerList: React.FC = () => {
           defaultMessage="Description"
         />
       ),
-      // key: 'state',
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: {
-        // all: { text: '', status: 'Default' },
         false: {
           text: '未激活',
           status: 'Error',
@@ -323,7 +321,7 @@ const BannerList: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProTable<API.ProductListItem, API.PageParams>
+      <ProTable<API.BannerListItem, API.PageParams>
         headerTitle={intl.formatMessage({
           id: 'pages.banner.searchTable.title',
           defaultMessage: 'Enquiry form',

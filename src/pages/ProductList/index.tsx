@@ -30,6 +30,7 @@ const handleAdd = async (fields: API.ProductListItem) => {
   try {
     await addProduct({
       name: fields.name,
+      subName: fields.subName,
       // @ts-ignore
       imageUrl: fields.imageUrl?.at(0).response?.url,
       category: fields.category,
@@ -147,8 +148,8 @@ const ProductList: React.FC = () => {
       ),
       dataIndex: 'imageUrl',
       render: (url) => {
-        // @ts-ignore
         return url ? (
+          // @ts-ignore
           <Image src={url} width={272} />
         ) : (
           <Image src="https://via.placeholder.com/300x200" width="20" />
@@ -328,6 +329,15 @@ const ProductList: React.FC = () => {
           width="md"
           name="name"
         />
+        <ProFormText
+          label={intl.formatMessage({
+            id: 'pages.product.searchTable.updateForm.subNameLabel',
+            defaultMessage: 'productName',
+          })}
+          width="md"
+          name="subName"
+        />
+
         <ProFormSelect
           name="category"
           width="md"
